@@ -40,14 +40,17 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme="light" theme={theme}>
+      <LoadingOverlay
+        visible={movies.length === 0}
+        overlayProps={{ blur: 2 }}
+        loaderProps={{ type: "bars" }}
+      />
       <Grid>
-        <LoadingOverlay
-          visible={movies.length === 0}
-          overlayProps={{ blur: 2 }}
-          loaderProps={{ type: "bars" }}
-        />
         {movies.map((movie) => (
-          <Grid.Col key={`movie-${movie.id}`} span={{ base: 6, md: 4, lg: 2 }}>
+          <Grid.Col
+            key={`movie-${movie.id}`}
+            span={{ base: 12, sm: 6, md: 4, lg: 2 }}
+          >
             <MovieCard movie={movie} />
           </Grid.Col>
         ))}
