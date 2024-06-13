@@ -45,7 +45,7 @@ function App() {
         overlayProps={{ blur: 2 }}
         loaderProps={{ type: "bars" }}
       />
-      <Grid>
+      <Grid p={"sm"}>
         {movies.map((movie) => (
           <Grid.Col
             key={`movie-${movie.id}`}
