@@ -1,25 +1,13 @@
-import {
-  Card,
-  Image,
-  ActionIcon,
-  Group,
-  Text,
-  Avatar,
-  Badge,
-  useMantineTheme,
-  rem,
-} from "@mantine/core";
-import { IconHeart, IconBookmark, IconShare } from "@tabler/icons-react";
+import { Card, Image, Group, Text, Avatar, Badge } from "@mantine/core";
 import classes from "./MovieCard.module.css";
 import { Movie } from "../../types";
+import MovieGauge from "../MovieGauge";
 
 type Props = {
   movie: Movie;
 };
 
 export function MovieCard({ movie }: Props) {
-  const theme = useMantineTheme();
-
   return (
     <Card withBorder padding="lg" radius="md" className={classes.card}>
       <Card.Section mb="sm">
@@ -54,31 +42,9 @@ export function MovieCard({ movie }: Props) {
       <Card.Section className={classes.footer}>
         <Group justify="space-between">
           <Text fz="xs" c="dimmed">
-            {`${movie.likes} people liked this`}
+            {`${movie.likes} people liked this movie`}
           </Text>
-          <Group gap={0}>
-            <ActionIcon variant="subtle" color="gray">
-              <IconHeart
-                style={{ width: rem(20), height: rem(20) }}
-                color={theme.colors.red[6]}
-                stroke={1.5}
-              />
-            </ActionIcon>
-            <ActionIcon variant="subtle" color="gray">
-              <IconBookmark
-                style={{ width: rem(20), height: rem(20) }}
-                color={theme.colors.yellow[6]}
-                stroke={1.5}
-              />
-            </ActionIcon>
-            <ActionIcon variant="subtle" color="gray">
-              <IconShare
-                style={{ width: rem(20), height: rem(20) }}
-                color={theme.colors.blue[6]}
-                stroke={1.5}
-              />
-            </ActionIcon>
-          </Group>
+          <MovieGauge likes={movie.likes} dislikes={movie.dislikes} />
         </Group>
       </Card.Section>
     </Card>
