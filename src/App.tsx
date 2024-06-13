@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   createTheme,
   Grid,
@@ -21,6 +21,13 @@ const theme = createTheme({
     md: "1rem",
     lg: "1.5rem",
     xl: "2rem",
+  },
+  components: {
+    Tooltip: {
+      defaultProps: {
+        radius: 10,
+      },
+    },
   },
 });
 
