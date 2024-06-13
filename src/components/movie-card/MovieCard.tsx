@@ -1,13 +1,27 @@
-import { Card, Image, Group, Text, Avatar, Badge } from "@mantine/core";
+import {
+  Card,
+  Image,
+  Group,
+  Text,
+  Avatar,
+  Badge,
+  ActionIcon,
+  rem,
+  useMantineTheme,
+  Tooltip,
+} from "@mantine/core";
 import classes from "./MovieCard.module.css";
 import { Movie } from "../../types";
 import MovieGauge from "../MovieGauge";
+import { IconTrashFilled } from "@tabler/icons-react";
 
 type Props = {
   movie: Movie;
 };
 
 export function MovieCard({ movie }: Props) {
+  const theme = useMantineTheme();
+
   return (
     <Card withBorder padding="lg" radius="md" className={classes.card}>
       <Card.Section mb="sm">
@@ -18,9 +32,25 @@ export function MovieCard({ movie }: Props) {
         />
       </Card.Section>
 
-      <Badge w="fit-content" variant="light">
-        {movie.category}
-      </Badge>
+      <Group justify="space-between">
+        <Badge w="fit-content" variant="light">
+          {movie.category}
+        </Badge>
+        <Tooltip
+          label="Delete"
+          withArrow
+          color={theme.colors.red[6]}
+          position="left"
+        >
+          <ActionIcon variant="subtle" color="gray">
+            <IconTrashFilled
+              style={{ width: rem(20), height: rem(20) }}
+              color={theme.colors.red[6]}
+              stroke={1.5}
+            />
+          </ActionIcon>
+        </Tooltip>
+      </Group>
 
       <Text fw={700} className={classes.title} mt="xs">
         {movie.title}
