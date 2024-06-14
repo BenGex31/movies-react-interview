@@ -5,6 +5,7 @@ import {
   LoadingOverlay,
   MantineProvider,
 } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { MovieCard } from "./components/movie-card/MovieCard";
 import "@mantine/core/styles.css";
 import "./App.css";
@@ -33,21 +34,23 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme="light" theme={theme}>
-      <LoadingOverlay
-        visible={movies.length === 0}
-        overlayProps={{ blur: 2 }}
-        loaderProps={{ type: "bars" }}
-      />
-      <Grid p={"sm"}>
-        {movies.map((movie) => (
-          <Grid.Col
-            key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
-            span={{ base: 12, sm: 6, md: 4, lg: 3 }}
-          >
-            <MovieCard movie={movie} />
-          </Grid.Col>
-        ))}
-      </Grid>
+      <ModalsProvider>
+        <LoadingOverlay
+          visible={movies.length === 0}
+          overlayProps={{ blur: 2 }}
+          loaderProps={{ type: "bars" }}
+        />
+        <Grid p={"sm"}>
+          {movies.map((movie) => (
+            <Grid.Col
+              key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
+              span={{ base: 12, sm: 6, md: 4, lg: 3 }}
+            >
+              <MovieCard movie={movie} />
+            </Grid.Col>
+          ))}
+        </Grid>
+      </ModalsProvider>
     </MantineProvider>
   );
 }
