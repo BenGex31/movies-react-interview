@@ -42,7 +42,7 @@ function App() {
         {movies.map((movie) => (
           <Grid.Col
             key={`movie-${movie.id}`}
-            span={{ base: 12, sm: 6, md: 4, lg: 2 }}
+            span={{ base: 12, sm: 6, md: 4, lg: 3 }}
           >
             <MovieCard movie={movie} />
           </Grid.Col>
