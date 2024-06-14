@@ -9,11 +9,13 @@ import {
   rem,
   useMantineTheme,
   Tooltip,
+  Title,
 } from "@mantine/core";
 import classes from "./MovieCard.module.css";
 import { Movie } from "../../types";
 import MovieGauge from "../MovieGauge";
 import { IconTrashFilled } from "@tabler/icons-react";
+import { modals } from "@mantine/modals";
 
 type Props = {
   movie: Movie;
@@ -21,6 +23,19 @@ type Props = {
 
 export function MovieCard({ movie }: Props) {
   const theme = useMantineTheme();
+
+  function handleOpenDeleteMovieModal(id: string, title: string): void {
+    modals.openConfirmModal({
+      modalId: `confirm-delete-movie-${id}-modal`,
+      title: <Title size={"h3"}>{title}</Title>,
+      children: (
+        <Text c={"dimmed"} fz={"sm"} fw={"bold"}>
+          Confirm deletion ?
+        </Text>
+      ),
+      labels: { confirm: "Delete", cancel: "Cancel" },
+    });
+  }
 
   return (
     <Card withBorder padding="lg" radius="md" className={classes.card}>
@@ -42,7 +57,11 @@ export function MovieCard({ movie }: Props) {
           color={theme.colors.red[6]}
           position="left"
         >
-          <ActionIcon variant="subtle" color="gray">
+          <ActionIcon
+            variant="subtle"
+            color="gray"
+            onClick={() => handleOpenDeleteMovieModal(movie.id, movie.title)}
+          >
             <IconTrashFilled
               style={{ width: rem(20), height: rem(20) }}
               color={theme.colors.red[6]}

@@ -34,7 +34,7 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme="light" theme={theme}>
-      <ModalsProvider>
+      <ModalsProvider modalProps={{ centered: true }}>
         <LoadingOverlay
           visible={movies.length === 0}
           overlayProps={{ blur: 2 }}
