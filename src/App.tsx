@@ -41,7 +41,7 @@ function App() {
       <Grid p={"sm"}>
         {movies.map((movie) => (
           <Grid.Col
-            key={`movie-${movie.id}`}
+            key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
             span={{ base: 12, sm: 6, md: 4, lg: 3 }}
           >
             <MovieCard movie={movie} />
