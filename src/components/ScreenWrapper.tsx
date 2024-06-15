@@ -1,4 +1,11 @@
-import { Container, Grid, LoadingOverlay, Space } from "@mantine/core";
+import {
+  Center,
+  Container,
+  Grid,
+  LoadingOverlay,
+  Space,
+  Title,
+} from "@mantine/core";
 import { useMovies } from "../context/MoviesProvider";
 import { MovieCard } from "./movie-card/MovieCard";
 import MoviesHeader from "./movies-header/MoviesHeader";
@@ -45,16 +52,22 @@ export default function ScreenWrapper() {
         setSelectedCategories={setSelectedCategories}
       />
       <Space h="xl" />
-      <Grid>
-        {filterByCategory().map((movie) => (
-          <Grid.Col
-            key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
-            span={{ base: 12, sm: 6, md: 4, lg: 3 }}
-          >
-            <MovieCard movie={movie} />
-          </Grid.Col>
-        ))}
-      </Grid>
+      {filterByCategory().length > 0 ? (
+        <Grid>
+          {filterByCategory().map((movie) => (
+            <Grid.Col
+              key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
+              span={{ base: 12, sm: 6, md: 4, lg: 3 }}
+            >
+              <MovieCard movie={movie} />
+            </Grid.Col>
+          ))}
+        </Grid>
+      ) : (
+        <Center>
+          <Title>No movies...</Title>
+        </Center>
+      )}
     </Container>
   );
 }
