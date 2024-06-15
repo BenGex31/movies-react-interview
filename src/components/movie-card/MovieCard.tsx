@@ -34,6 +34,7 @@ export function MovieCard({ movie }: Props) {
         </Text>
       ),
       labels: { confirm: "Delete", cancel: "Cancel" },
+      withCloseButton: false,
     });
   }
 
