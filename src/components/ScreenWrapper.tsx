@@ -1,6 +1,7 @@
-import { Container, Grid, LoadingOverlay } from "@mantine/core";
+import { Container, Grid, LoadingOverlay, Space } from "@mantine/core";
 import { useMovies } from "../context/MoviesProvider";
 import { MovieCard } from "./movie-card/MovieCard";
+import MoviesHeader from "./movies-header/MoviesHeader";
 
 export default function ScreenWrapper() {
   const { movies } = useMovies();
@@ -11,7 +12,10 @@ export default function ScreenWrapper() {
         overlayProps={{ blur: 2 }}
         loaderProps={{ type: "bars" }}
       />
-      <Grid p={"sm"}>
+      <Space h="md" />
+      <MoviesHeader />
+      <Space h="xl" />
+      <Grid>
         {movies.map((movie) => (
           <Grid.Col
             key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
