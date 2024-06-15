@@ -2,9 +2,12 @@ import {
   Center,
   Container,
   Grid,
+  Group,
   LoadingOverlay,
   Space,
   Title,
+  rem,
+  useMantineTheme,
 } from "@mantine/core";
 import { useMovies } from "../context/MoviesProvider";
 import { MovieCard } from "./movie-card/MovieCard";
@@ -12,8 +15,10 @@ import MoviesHeader from "./movies-header/MoviesHeader";
 import { useEffect, useState } from "react";
 import { movies$ } from "../movies/movies";
 import { Movie } from "../types";
+import { IconMovieOff } from "@tabler/icons-react";
 
 export default function ScreenWrapper() {
+  const theme = useMantineTheme();
   const { movies } = useMovies();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectData, setSelectData] = useState<string[]>([]);
@@ -65,7 +70,14 @@ export default function ScreenWrapper() {
         </Grid>
       ) : (
         <Center>
-          <Title>No movies...</Title>
+          <Group>
+            <Title c={"dimmed"}>No movie...</Title>
+            <IconMovieOff
+              style={{ width: rem(40), height: rem(40) }}
+              color={theme.colors.blue[6]}
+              stroke={1.5}
+            />
+          </Group>
         </Center>
       )}
     </Container>
