@@ -32,7 +32,15 @@ export default function MoviesProvider({ children }: MoviesProviderType) {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    movies$.then((movies) => setMovies(movies));
+    movies$.then((movies) =>
+      setMovies(
+        movies.map((movie: Movie) => ({
+          ...movie,
+          disableLike: false,
+          disableDislike: false,
+        }))
+      )
+    );
   }, []);
 
   return (

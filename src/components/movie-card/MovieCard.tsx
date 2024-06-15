@@ -122,7 +122,7 @@ export function MovieCard({ movie }: Props) {
           <Text fz="xs" c="dimmed">
             {`${movie.likes} people liked this movie`}
           </Text>
-          <MovieGauge likes={movie.likes} dislikes={movie.dislikes} />
+          <MovieGauge movie={movie} />
         </Group>
       </Card.Section>
     </Card>

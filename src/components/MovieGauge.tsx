@@ -11,14 +11,16 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 import { ReactNode } from "react";
+import { useMovies } from "../context/MoviesProvider";
+import { Movie } from "../types";
 
 type Props = {
-  likes: number;
-  dislikes: number;
+  movie: Movie;
 };
 
-export default function MovieGauge({ likes, dislikes }: Props) {
+export default function MovieGauge({ movie }: Props) {
   const theme = useMantineTheme();
+  const { movies, setMovies } = useMovies();
 
   function tooltipLabel(number: number): ReactNode {
     return (
@@ -29,14 +31,58 @@ export default function MovieGauge({ likes, dislikes }: Props) {
     );
   }
 
+  function handleLikeMovieClick(isLikes: boolean): void {
+    const _movies = [...movies];
+    const findMovieIndex = _movies.findIndex(
+      (_movie) => _movie.id === movie.id
+    );
+    if (findMovieIndex !== -1) {
+      const { likes } = _movies[findMovieIndex];
+      const { dislikes } = _movies[findMovieIndex];
+
+      if (isLikes) {
+        _movies[findMovieIndex].likes = likes + 1;
+
+        if (_movies[findMovieIndex].disableDislike) {
+          if (_movies[findMovieIndex].dislikes === 0) {
+            _movies[findMovieIndex].dislikes = 0;
+          } else {
+            _movies[findMovieIndex].dislikes = dislikes - 1;
+          }
+        }
+
+        _movies[findMovieIndex].disableLike = true;
+        _movies[findMovieIndex].disableDislike = false;
+      } else {
+        _movies[findMovieIndex].dislikes = dislikes + 1;
+        if (_movies[findMovieIndex].disableLike) {
+          if (_movies[findMovieIndex].likes === 0) {
+            _movies[findMovieIndex].likes = 0;
+          } else {
+            _movies[findMovieIndex].likes = likes - 1;
+          }
+        }
+
+        _movies[findMovieIndex].disableDislike = true;
+        _movies[findMovieIndex].disableLike = false;
+      }
+      setMovies(_movies);
+    }
+  }
+
   return (
     <Group gap={"xs"}>
       <Tooltip
-        label={tooltipLabel(likes)}
+        label={tooltipLabel(movie.likes)}
         withArrow
         color={theme.colors.green[8]}
       >
-        <ActionIcon variant="subtle" color="gray">
+        <ActionIcon
+          variant="subtle"
+          color="gray"
+          onClick={() => handleLikeMovieClick(true)}
+          disabled={movie.disableLike}
+        >
           <IconThumbUpFilled
             style={{ width: rem(20), height: rem(20) }}
             color={theme.colors.green[8]}
@@ -45,11 +91,16 @@ export default function MovieGauge({ likes, dislikes }: Props) {
         </ActionIcon>
       </Tooltip>
       <Tooltip
-        label={tooltipLabel(dislikes)}
+        label={tooltipLabel(movie.dislikes)}
         withArrow
         color={theme.colors.red[8]}
       >
-        <ActionIcon variant="subtle" color="gray">
+        <ActionIcon
+          variant="subtle"
+          color="gray"
+          onClick={() => handleLikeMovieClick(false)}
+          disabled={movie.disableDislike}
+        >
           <IconThumbDownFilled
             style={{ width: rem(20), height: rem(20) }}
             color={theme.colors.red[8]}
