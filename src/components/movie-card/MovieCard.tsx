@@ -18,6 +18,7 @@ import MovieGauge from "../MovieGauge";
 import { IconCheck, IconTrashFilled, IconX } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import { useMovies } from "../../context/MoviesProvider";
+import movieMakingOffImg from "../../images/movie-making-off.jpg";
 
 type Props = {
   movie: Movie;
@@ -70,8 +71,8 @@ export function MovieCard({ movie }: Props) {
     <Card withBorder padding="lg" radius="md" className={classes.card}>
       <Card.Section mb="sm">
         <Image
-          src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80"
-          alt="Top 50 underrated plants for house decoration"
+          src={movieMakingOffImg}
+          alt={`movie-${movie.title}`}
           height={180}
         />
       </Card.Section>
