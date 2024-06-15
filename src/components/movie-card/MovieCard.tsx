@@ -11,11 +11,13 @@ import {
   Tooltip,
   Title,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import classes from "./MovieCard.module.css";
 import { Movie } from "../../types";
 import MovieGauge from "../MovieGauge";
 import { IconTrashFilled } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
+import { useMovies } from "../../context/MoviesProvider";
 
 type Props = {
   movie: Movie;
@@ -23,6 +25,7 @@ type Props = {
 
 export function MovieCard({ movie }: Props) {
   const theme = useMantineTheme();
+  const { movies, setMovies } = useMovies();
 
   function handleOpenDeleteMovieModal(id: string, title: string): void {
     modals.openConfirmModal({
@@ -35,7 +38,28 @@ export function MovieCard({ movie }: Props) {
       ),
       labels: { confirm: "Delete", cancel: "Cancel" },
       withCloseButton: false,
+      onConfirm: () => handleDeleteMovie(id),
     });
+  }
+
+  function handleDeleteMovie(id: string): void {
+    const _movies = [...movies];
+    const findMovieIndex = _movies.findIndex((movie) => movie.id === id);
+    if (findMovieIndex !== -1) {
+      _movies.splice(findMovieIndex, 1);
+      setMovies(_movies);
+      notifications.show({
+        color: theme.colors.green[8],
+        title: "Success",
+        message: "Movie deleted !",
+      });
+    } else {
+      notifications.show({
+        color: theme.colors.red[8],
+        title: "Error",
+        message: "An error has occurred",
+      });
+    }
   }
 
   return (

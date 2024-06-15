@@ -33,7 +33,7 @@ export default function MoviesProvider({ children }: MoviesProviderType) {
 
   useEffect(() => {
     movies$.then((movies) => setMovies(movies));
-  }, [movies]);
+  }, []);
 
   return (
     <MoviesContext.Provider value={{ movies, setMovies }}>
