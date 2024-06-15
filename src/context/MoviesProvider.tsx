@@ -17,10 +17,11 @@ const MoviesContext = createContext<MoviesContextType | undefined>(undefined);
 
 export function useMovies(): MoviesContextType {
   const context = useContext(MoviesContext);
-  if (context === undefined) {
+  if (context) {
+    return context;
+  } else {
     throw new Error("useMovies must be used within a MoviesProvider");
   }
-  return context;
 }
 
 type MoviesProviderType = {
