@@ -11,11 +11,11 @@ import {
   Tooltip,
   Title,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
+import { showNotification } from "@mantine/notifications";
 import classes from "./MovieCard.module.css";
 import { Movie } from "../../types";
 import MovieGauge from "../MovieGauge";
-import { IconTrashFilled } from "@tabler/icons-react";
+import { IconCheck, IconTrashFilled, IconX } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import { useMovies } from "../../context/MoviesProvider";
 
@@ -48,16 +48,20 @@ export function MovieCard({ movie }: Props) {
     if (findMovieIndex !== -1) {
       _movies.splice(findMovieIndex, 1);
       setMovies(_movies);
-      notifications.show({
-        color: theme.colors.green[8],
+      showNotification({
+        id: `delete-movie-${id}-notification`,
         title: "Success",
         message: "Movie deleted !",
+        color: theme.colors.green[8],
+        icon: <IconCheck />,
       });
     } else {
-      notifications.show({
-        color: theme.colors.red[8],
+      showNotification({
+        id: `delete-movie-${id}-notification`,
         title: "Error",
-        message: "An error has occurred",
+        message: "An error has occurred !",
+        color: theme.colors.red[8],
+        icon: <IconX />,
       });
     }
   }
