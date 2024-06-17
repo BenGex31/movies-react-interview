@@ -22,7 +22,6 @@ export default function MoviesHeader({
         <Grid.Col span={{ base: 8, md: 4 }}>
           <MultiSelect
             data={selectData}
-            label="Search"
             placeholder="Choose categories"
             searchable
             onChange={setSelectedCategories}
