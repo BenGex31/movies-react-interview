@@ -15,7 +15,7 @@ export default function MoviesHeader({
       <Grid justify="space-evenly" align="flex-end">
         <Grid.Col span={{ base: 8, md: 4 }}>
           <Title size={"h1"} className={classes.title}>
-            Movies list
+            Particeep Movies list
           </Title>
         </Grid.Col>
 
