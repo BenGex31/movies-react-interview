@@ -12,8 +12,7 @@ import {
 import { useMovies } from "../context/MoviesProvider";
 import { MovieCard } from "./movie-card/MovieCard";
 import MoviesHeader from "./movies-header/MoviesHeader";
-import { useEffect, useState } from "react";
-import { movies$ } from "../movies/movies";
+import { useMemo, useState } from "react";
 import { Movie } from "../types";
 import { IconMovieOff } from "@tabler/icons-react";
 
@@ -21,19 +20,14 @@ export default function ScreenWrapper() {
   const theme = useMantineTheme();
   const { movies } = useMovies();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectData, setSelectData] = useState<string[]>([]);
 
-  useEffect(() => {
-    movies$.then((movies) => {
-      const categories: string[] = movies.map((movie: Movie) => movie.category);
-      const uniqueCategories = categories.filter(
-        (item, index) => categories.indexOf(item) === index
-      );
-      setSelectedCategories(uniqueCategories);
-      setSelectData(uniqueCategories);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const selectData = useMemo(() => {
+    const categories: string[] = movies.map((movie: Movie) => movie.category);
+    const uniqueCategories = categories.filter(
+      (item, index) => categories.indexOf(item) === index
+    );
+    return uniqueCategories;
+  }, [movies]);
 
   function filterByCategory() {
     if (selectedCategories.length === 0) {
