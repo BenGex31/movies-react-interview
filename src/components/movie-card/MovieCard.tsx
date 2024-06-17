@@ -3,7 +3,6 @@ import {
   Image,
   Group,
   Text,
-  Avatar,
   Badge,
   ActionIcon,
   rem,
