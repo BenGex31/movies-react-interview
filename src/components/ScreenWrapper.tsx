@@ -66,7 +66,7 @@ function PaginationWrapper<T>({
 }
 
 export default function ScreenWrapper() {
-  const { movies } = useMovies();
+  const { movies, loading } = useMovies();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<number>(8);
 
@@ -92,7 +92,7 @@ export default function ScreenWrapper() {
   return (
     <Container fluid>
       <LoadingOverlay
-        visible={movies.length === 0}
+        visible={loading}
         overlayProps={{ blur: 2 }}
         loaderProps={{ type: "bars", color: "#ff5047" }}
       />
@@ -121,9 +121,9 @@ export default function ScreenWrapper() {
           onItemsPerPageChange={setItemsPerPage}
         />
       ) : (
-        <Center>
+        <Center mt={"xl"}>
           <Group>
-            <Title c={"dimmed"}>No movie...</Title>
+            <Title c={"#ff5047"}>No movie...</Title>
             <IconMovieOff
               style={{ width: rem(40), height: rem(40) }}
               color={"#ff5047"}
