@@ -1,4 +1,9 @@
-import { createTheme, MantineProvider } from "@mantine/core";
+import {
+  createTheme,
+  MantineProvider,
+  MultiSelect,
+  Select,
+} from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
 import "@mantine/core/styles.css";
@@ -17,6 +22,20 @@ const theme = createTheme({
         radius: 10,
       },
     },
+    Select: Select.extend({
+      styles: {
+        label: { color: "#ff5047" },
+        option: { color: "#ff5047" },
+        input: { color: "#ff5047" },
+      },
+    }),
+    MultiSelect: MultiSelect.extend({
+      styles: {
+        label: { color: "#ff5047" },
+        option: { color: "#ff5047" },
+        pill: { color: "#ff5047" },
+      },
+    }),
   },
 });
 
