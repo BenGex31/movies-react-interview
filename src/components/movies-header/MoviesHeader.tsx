@@ -1,5 +1,6 @@
-import { MultiSelect, Title, Grid } from "@mantine/core";
+import { MultiSelect, Title, Grid, Group, Image } from "@mantine/core";
 import classes from "./MoviesHeader.module.css";
+import logo from "../../images/logo.png";
 
 type Props = {
   selectData: string[];
@@ -14,9 +15,12 @@ export default function MoviesHeader({
     <header className={classes.header}>
       <Grid justify="space-evenly" align="flex-end">
         <Grid.Col span={{ base: 8, md: 4 }}>
-          <Title size={"h1"} className={classes.title}>
-            Particeep Movies list
-          </Title>
+          <Group>
+            <Image src={logo} width={50} height={50} />
+            <Title size={"h1"} className={classes.title}>
+              Particeep Movies list
+            </Title>
+          </Group>
         </Grid.Col>
 
         <Grid.Col span={{ base: 8, md: 4 }}>
