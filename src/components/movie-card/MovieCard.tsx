@@ -67,7 +67,13 @@ export function MovieCard({ movie }: Props) {
   }
 
   return (
-    <Card withBorder padding="lg" radius="md" className={classes.card}>
+    <Card
+      withBorder
+      padding="lg"
+      radius="md"
+      shadow="xs"
+      className={classes.card}
+    >
       <Card.Section mb="sm">
         <Image
           src={movieMakingOffImg}
