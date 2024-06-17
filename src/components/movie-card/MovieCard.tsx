@@ -105,19 +105,6 @@ export function MovieCard({ movie }: Props) {
         {movie.title}
       </Text>
 
-      <Group mt="lg">
-        <Avatar
-          src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png"
-          radius="sm"
-        />
-        <div>
-          <Text fw={500}>Elsa Gardenowl</Text>
-          <Text fz="xs" c="dimmed">
-            posted 34 minutes ago
-          </Text>
-        </div>
-      </Group>
-
       <Card.Section className={classes.footer}>
         <Group justify="space-between">
           <Text fz="xs" c="dimmed">
