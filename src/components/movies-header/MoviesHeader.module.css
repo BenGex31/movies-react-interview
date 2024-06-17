@@ -7,13 +7,6 @@
   padding-bottom: var(--mantine-spacing-md);
 }
 
-.inner {
-  height: rem(56px);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .title {
   color: var(--mantine-color-blue-4);
 }

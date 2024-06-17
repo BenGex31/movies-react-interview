@@ -1,5 +1,4 @@
-import { useDisclosure } from "@mantine/hooks";
-import { Burger, Group, MultiSelect, Title } from "@mantine/core";
+import { MultiSelect, Title, Grid } from "@mantine/core";
 import classes from "./MoviesHeader.module.css";
 
 type Props = {
@@ -11,26 +10,25 @@ export default function MoviesHeader({
   selectData,
   setSelectedCategories,
 }: Props) {
-  const [opened, { toggle }] = useDisclosure(false);
-
   return (
     <header className={classes.header}>
-      <div className={classes.inner}>
-        <Group>
-          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+      <Grid justify="space-evenly" align="flex-end">
+        <Grid.Col span={{ base: 8, md: 4 }}>
           <Title size={"h1"} className={classes.title}>
             Movies list
           </Title>
-        </Group>
+        </Grid.Col>
 
-        <MultiSelect
-          data={selectData}
-          label="Search"
-          placeholder="Choose categories"
-          searchable
-          onChange={setSelectedCategories}
-        />
-      </div>
+        <Grid.Col span={{ base: 8, md: 4 }}>
+          <MultiSelect
+            data={selectData}
+            label="Search"
+            placeholder="Choose categories"
+            searchable
+            onChange={setSelectedCategories}
+          />
+        </Grid.Col>
+      </Grid>
     </header>
   );
 }
