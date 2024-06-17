@@ -58,6 +58,7 @@ function PaginationWrapper<T>({
           total={totalPages}
           value={pagination.active}
           onChange={pagination.setPage}
+          color="#ff5047"
         />
       </Group>
       {render(currentData)}
