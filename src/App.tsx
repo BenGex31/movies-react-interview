@@ -1,4 +1,5 @@
 import {
+  Badge,
   createTheme,
   MantineProvider,
   MultiSelect,
@@ -34,6 +35,11 @@ const theme = createTheme({
         label: { color: "#ff5047" },
         option: { color: "#ff5047" },
         pill: { color: "#ff5047" },
+      },
+    }),
+    Badge: Badge.extend({
+      defaultProps: {
+        color: "#ff5047",
       },
     }),
   },
