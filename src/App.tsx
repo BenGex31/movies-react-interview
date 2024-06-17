@@ -25,16 +25,16 @@ const theme = createTheme({
     },
     Select: Select.extend({
       styles: {
-        label: { color: "#ff5047" },
-        option: { color: "#ff5047" },
-        input: { color: "#ff5047" },
+        label: { color: "#ff5047", fontWeight: "bold" },
+        option: { color: "#ff5047", fontWeight: "bold" },
+        input: { color: "#ff5047", fontWeight: "bold" },
       },
     }),
     MultiSelect: MultiSelect.extend({
       styles: {
         label: { color: "#ff5047" },
-        option: { color: "#ff5047" },
-        pill: { color: "#ff5047" },
+        option: { color: "#ff5047", fontWeight: "bold" },
+        pill: { color: "#ff5047", fontWeight: "bold" },
       },
     }),
     Badge: Badge.extend({
