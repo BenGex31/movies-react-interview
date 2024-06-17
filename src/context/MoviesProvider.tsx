@@ -11,6 +11,7 @@ import { movies$ } from "../movies/movies";
 interface MoviesContextType {
   movies: Movie[];
   setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+  loading: boolean;
 }
 
 const MoviesContext = createContext<MoviesContextType | undefined>(undefined);
@@ -30,21 +31,24 @@ type MoviesProviderType = {
 
 export default function MoviesProvider({ children }: MoviesProviderType) {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    movies$.then((movies) =>
+    setLoading(true);
+    movies$.then((movies) => {
       setMovies(
         movies.map((movie: Movie) => ({
           ...movie,
           disableLike: false,
           disableDislike: false,
         }))
-      )
-    );
+      );
+      setLoading(false);
+    });
   }, []);
 
   return (
-    <MoviesContext.Provider value={{ movies, setMovies }}>
+    <MoviesContext.Provider value={{ movies, setMovies, loading }}>
       {children}
     </MoviesContext.Provider>
   );
