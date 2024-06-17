@@ -7,7 +7,6 @@ import {
   Space,
   Title,
   rem,
-  useMantineTheme,
   Pagination,
   Select,
   Stack,
@@ -67,7 +66,6 @@ function PaginationWrapper<T>({
 }
 
 export default function ScreenWrapper() {
-  const theme = useMantineTheme();
   const { movies } = useMovies();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<number>(8);
@@ -96,7 +94,7 @@ export default function ScreenWrapper() {
       <LoadingOverlay
         visible={movies.length === 0}
         overlayProps={{ blur: 2 }}
-        loaderProps={{ type: "bars" }}
+        loaderProps={{ type: "bars", color: "#ff5047" }}
       />
       <Space h="md" />
       <MoviesHeader
@@ -128,7 +126,7 @@ export default function ScreenWrapper() {
             <Title c={"dimmed"}>No movie...</Title>
             <IconMovieOff
               style={{ width: rem(40), height: rem(40) }}
-              color={theme.colors.blue[6]}
+              color={"#ff5047"}
               stroke={1.5}
             />
           </Group>
