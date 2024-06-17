@@ -8,7 +8,11 @@ import {
   Title,
   rem,
   useMantineTheme,
+  Pagination,
+  Select,
+  Stack,
 } from "@mantine/core";
+import { usePagination } from "@mantine/hooks";
 import { useMovies } from "../context/MoviesProvider";
 import { MovieCard } from "./movie-card/MovieCard";
 import MoviesHeader from "./movies-header/MoviesHeader";
@@ -16,10 +20,56 @@ import { useMemo, useState } from "react";
 import { Movie } from "../types";
 import { IconMovieOff } from "@tabler/icons-react";
 
+interface PaginationWrapperProps<T> {
+  itemsPerPage: number;
+  data: T[];
+  render: (data: T[]) => React.ReactNode;
+  onItemsPerPageChange: (itemsPerPage: number) => void;
+}
+
+function PaginationWrapper<T>({
+  itemsPerPage,
+  data,
+  render,
+  onItemsPerPageChange,
+}: PaginationWrapperProps<T>) {
+  const totalItems = data.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const pagination = usePagination({ total: totalPages, initialPage: 1 });
+  const startIndex = (pagination.active - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = data.slice(startIndex, endIndex);
+
+  return (
+    <Stack gap={"xl"}>
+      <Group align="flex-end" justify="space-evenly" gap={"xl"}>
+        <Select
+          label="Movies per page"
+          value={itemsPerPage.toString()}
+          onChange={(value) => onItemsPerPageChange(Number(value))}
+          data={[
+            { value: "4", label: "4" },
+            { value: "8", label: "8" },
+            { value: "12", label: "12" },
+          ]}
+        />
+        <Pagination
+          total={totalPages}
+          value={pagination.active}
+          onChange={pagination.setPage}
+        />
+      </Group>
+      {render(currentData)}
+    </Stack>
+  );
+}
+
 export default function ScreenWrapper() {
   const theme = useMantineTheme();
   const { movies } = useMovies();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(8);
 
   const selectData = useMemo(() => {
     const categories: string[] = movies.map((movie: Movie) => movie.category);
@@ -29,7 +79,7 @@ export default function ScreenWrapper() {
     return uniqueCategories;
   }, [movies]);
 
-  function filterByCategory() {
+  function filterByCategory(): Movie[] {
     if (selectedCategories.length === 0) {
       return movies;
     }
@@ -37,6 +87,8 @@ export default function ScreenWrapper() {
       selectedCategories.includes(movie.category)
     );
   }
+
+  const filteredMovies = filterByCategory();
 
   return (
     <Container fluid>
@@ -51,17 +103,24 @@ export default function ScreenWrapper() {
         setSelectedCategories={setSelectedCategories}
       />
       <Space h="xl" />
-      {filterByCategory().length > 0 ? (
-        <Grid>
-          {filterByCategory().map((movie) => (
-            <Grid.Col
-              key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
-              span={{ base: 12, sm: 6, md: 4, lg: 3 }}
-            >
-              <MovieCard movie={movie} />
-            </Grid.Col>
-          ))}
-        </Grid>
+      {filteredMovies.length > 0 ? (
+        <PaginationWrapper<Movie>
+          itemsPerPage={itemsPerPage}
+          data={filteredMovies}
+          render={(currentData) => (
+            <Grid>
+              {currentData.map((movie) => (
+                <Grid.Col
+                  key={`movie-${movie.id}-${movie.title.toLowerCase()}`}
+                  span={{ base: 12, sm: 6, md: 4, lg: 3 }}
+                >
+                  <MovieCard movie={movie} />
+                </Grid.Col>
+              ))}
+            </Grid>
+          )}
+          onItemsPerPageChange={setItemsPerPage}
+        />
       ) : (
         <Center>
           <Group>
